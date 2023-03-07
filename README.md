@@ -1,3 +1,3 @@
 # CommitRocket Website Backend
 
-The frontend of www.commitrocket.com
+The backend of www.commitrocket.com
