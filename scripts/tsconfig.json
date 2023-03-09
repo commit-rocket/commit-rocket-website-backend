@@ -1,8 +1,9 @@
 {
   "include": [
-    "src/**/*"
+    "./**/*"
   ],
   "compilerOptions": {
+    "composite": true,
     "outDir": "./dist",
     "module": "NodeNext",
     "target": "ESNext",
@@ -14,11 +15,5 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "removeComments": true,
-    "tsBuildInfoFile": "./node_modules/build/.tsbuildinfo"
-  },
-  "references": [
-    {
-      "path": "scripts/tsconfig.json"
-    }
-  ]
+  }
 }
