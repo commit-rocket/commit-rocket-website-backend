@@ -1,3 +1,3 @@
 # CommitRocket Website Backend
 
-The backend of www.commitrocket.com ([backend.commitrocket.com](backend.commitrocket.com))
+The backend of https://www.commitrocket.com (https://backend.commitrocket.com)
