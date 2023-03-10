@@ -1,4 +1,4 @@
-import { Client, Events, SlashCommandBuilder, CommandInteraction, REST, Routes } from "discord.js";
+import { Client, Events, SlashCommandBuilder, Interaction, CommandInteraction, REST, Routes, InteractionType, ApplicationCommandType } from "discord.js";
 
 export interface Command {
     info: SlashCommandBuilder,
@@ -35,7 +35,7 @@ rest.setToken(process.env.DISCORD_TOKEN!);
 client.login(process.env.DISCORD_TOKEN);
 client.user?.setStatus("online");
 
-client.on(Events.InteractionCreate, (interaction) => {
+client.on("interactionCreateHook", (interaction: Interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
     const command = client.commands.get(interaction.commandName);
