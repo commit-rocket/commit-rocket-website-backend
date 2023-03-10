@@ -1,6 +1,7 @@
 {
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "type-overrides/cyclic-db.d.ts"
   ],
   "compilerOptions": {
     "outDir": "./dist",

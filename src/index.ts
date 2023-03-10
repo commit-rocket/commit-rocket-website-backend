@@ -1,30 +1,20 @@
-console.log("Hi");
+import "./setup";
 
 import Koa from "koa";
-import Router from "koa-zod-router";
-import { z } from "zod";
+import router from "./routes";
+
+import client from "./clients/discord";
+import "./commands";
 
 const app = new Koa();
-const router = Router();
-
-router.get("/", (ctx) => {
-    ctx.body = {
-        status: "online"
-    };
-});
-
-router.post("/post", (ctx) => {
-    ctx.body = {
-        request: ctx.request.body
-    };
-}, {
-    body: z.record(z.string(), z.any()),
-    response: z.object({
-        request: z.any()
-    })
-});
 
 app
     .use(router.routes())
     .use(router.allowedMethods())
-    .listen(3000, () => console.log("Server started on port 3000 (http://localhost:3000)"));
+    .listen(3000, async () => {
+        // console.log("Saving commands");
+        // await client.saveCommands();
+        // console.log("Done saving commands");
+
+        console.log("Server started on port 3000 (http://localhost:3000)");
+    });
