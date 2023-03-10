@@ -15,9 +15,6 @@ const feedbackPostSchema = z.object({
 
 router.post("/", async (ctx) => {
     const body = ctx.request.body;
-    // const posts = db.collection("feedback-posts");
-
-    // await posts.set(generateUuidV4(), body, {});
 
     await logToChannel(body.text, process.env.DISCORD_FEEDBACK_CHANNEL!);
 

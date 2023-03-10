@@ -13,7 +13,7 @@ interface Collection {
     collection: string;
 
     item(key: string): CyclicItem;
-    get(key: string): Promise<CyclicItem>;
+    get(key: string): Promise<CyclicItem> | null;
     set(key: string, props?: any, opts?: any): Promise<CyclicItem>;
     delete(key: string, props?: any, opts?: any): Promise<boolean>;
     filter(q?: {}, segments?: number, next?: any): Promise<QueryResults<any>>;
@@ -21,7 +21,7 @@ interface Collection {
         length: number;
     }>;
     list(limit?: number, next?: any): Promise<QueryResults<CyclicItem>>;
-    latest(): Promise<CyclicItem>;
+    latest(): Promise<CyclicItem> | null;
     index(name: string): CyclicIndex;
     find(name: string, value: any): Promise<QueryResults<CyclicItem>>;
 }
