@@ -62,7 +62,7 @@ router.post("/", async (ctx) => {
         return;
     }
 
-    const body = ctx.request.body;
+    const body = ctx.request.body!;
 
     const channel = getChannel(body);
 
@@ -152,12 +152,12 @@ router.post("/", async (ctx) => {
         "x-signature-timestamp": z.string()
     }),
     body: z.object({
-        type: z.nativeEnum(HookInteractionType).or(z.number()),
-        data: z.object({
+        type: z.nullable(z.nativeEnum(HookInteractionType).or(z.number())),
+        data: z.nullable(z.object({
             type: z.number().int().nullable(),
             component_type: z.number().int().nullable()
-        }).nullable()
-    })
+        }))
+    }).nullable()
 });
 
 export default router;
