@@ -1,7 +1,6 @@
 {
   "include": [
-    "src/**/*",
-    "type-overrides/cyclic-db.d.ts"
+    "src/**/*"
   ],
   "compilerOptions": {
     "outDir": "./dist",
@@ -15,7 +14,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "removeComments": true,
-    "tsBuildInfoFile": "./node_modules/build/.tsbuildinfo"
+    "tsBuildInfoFile": "./.cache/.tsbuildinfo"
   },
   "references": [
     {

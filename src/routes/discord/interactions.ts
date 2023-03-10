@@ -48,21 +48,31 @@ const getChannel = (data: any) => getPayload(
 
 // https://backend.commitrocket.com/discord/interactions
 router.post("/", async (ctx) => {
+    const body = ctx.request.body!;
 
-    const isValidRequest = verifyKey(
-        ctx.request.rawBody,
-        ctx.request.headers["x-signature-ed25519"],
-        ctx.request.headers["x-signature-timestamp"],
-        process.env.PUBLIC_KEY!
-    );
-
-    if (!isValidRequest) {
-        ctx.status = 401;
-        ctx.body = { error: "Bad request signature" };
+    if (body.type === HookInteractionType.PING) {
+        ctx.body = { type: HookInteractionResponseType.PONG };
         return;
     }
 
-    const body = ctx.request.body!;
+    // if (!ctx.request.headers) {
+    //     headerSchema.(ctx.request.headers)
+    // }
+    console.log(ctx.request.headers);
+    
+    // const isValidRequest = verifyKey(
+    //     ctx.request.rawBody,
+    //     ctx.request.headers["x-signature-ed25519"],
+    //     ctx.request.headers["x-signature-timestamp"],
+    //     process.env.PUBLIC_KEY!
+    // );
+
+    // if (!isValidRequest) {
+    //     ctx.status = 401;
+    //     ctx.body = { error: "Bad request signature" };
+    //     return;
+    // }
+
 
     const channel = getChannel(body);
 
@@ -148,16 +158,16 @@ router.post("/", async (ctx) => {
     client.emit(Events.InteractionCreate, interaction);
 }, {
     headers: z.object({
-        "x-signature-ed25519": z.string(),
-        "x-signature-timestamp": z.string()
+        "x-signature-ed25519": z.string().optional(),
+        "x-signature-timestamp": z.string().optional()
     }),
     body: z.object({
-        type: z.nullable(z.nativeEnum(HookInteractionType).or(z.number())),
-        data: z.nullable(z.object({
-            type: z.number().int().nullable(),
-            component_type: z.number().int().nullable()
-        }))
-    }).nullable()
+        type: z.nativeEnum(HookInteractionType).or(z.number()).optional(),
+        data: z.object({
+            type: z.number().int().optional(),
+            component_type: z.number().int().optional()
+        }).optional()
+    }).optional()
 });
 
 export default router;
