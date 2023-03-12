@@ -34,7 +34,7 @@ router.post("/subscribe", async (ctx) => {
         email: body.email
     };
 
-    if (!await mailingList.get(body.email)) {
+    if (await mailingList.get(body.email)) {
         ctx.body = successResponse;
         return;
     }
