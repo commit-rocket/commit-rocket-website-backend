@@ -19,7 +19,8 @@ router.post("/", async (ctx) => {
     await logToChannel(body.text, process.env.DISCORD_FEEDBACK_CHANNEL!);
 
     ctx.body = {
-        success: true
+        success: true,
+        message: "Your feedback has been submitted!"
     };
 }, {
     body: feedbackPostSchema

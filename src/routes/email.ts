@@ -50,7 +50,7 @@ router.post("/subscribe", async (ctx) => {
     response: subscriptionResponseSchema
 });
 
-router.delete("/unsubscribe", async (ctx) => {
+router.post("/unsubscribe", async (ctx) => {
     const body = ctx.request.body;
     const mailingList = db.collection("mailing-list");
 
