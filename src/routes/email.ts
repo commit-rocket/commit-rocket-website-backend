@@ -18,7 +18,7 @@ const subscriptionResponseSchema = z.object({
 });
 
 const subscriptionSchema = z.object({
-    email: z.string().email().min(3).transform(sanitizeHtml)
+    email: z.string().email().min(3).toLowerCase().transform(sanitizeHtml)
 });
 
 const successResponse: z.infer<typeof subscriptionResponseSchema> = {
@@ -38,7 +38,6 @@ router.post("/subscribe", async (ctx) => {
         ctx.body = successResponse;
         return;
     }
-
     await Promise.all([
         mailingList.set(body.email, newSubscriber, {}),
         logToChannel(body.email, process.env.DISCORD_MAIL_CHANNEL!)
