@@ -1,6 +1,5 @@
 import CyclicDb from "@cyclic.sh/dynamodb";
 import CyclicItem from "@cyclic.sh/dynamodb/dist/cy_db_item";
-import CyclicCollection from "@cyclic.sh/dynamodb/dist/cy_db_collection";
 import CyclicIndex from "@cyclic.sh/dynamodb/dist/cy_db_index";
 
 interface QueryResults<ResultType extends any> {

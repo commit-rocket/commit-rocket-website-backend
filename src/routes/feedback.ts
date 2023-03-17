@@ -1,7 +1,6 @@
 import Router from "koa-zod-router";
-import { v4 as generateUuidV4 } from "uuid";
 import { z } from "zod";
-import db from "../storage/db";
+
 import { logToChannel } from "../storage/discord";
 import { sanitizeHtml } from "../utils/sanitize";
 

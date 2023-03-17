@@ -9,6 +9,10 @@ export interface IClient extends Client {
     commands: Map<string, Command>;
     addCommand: (command: Command) => void;
     saveCommands: () => Promise<void>;
+    /*
+    * Waits for client to be ready, if it is already ready it will immidiately resolve
+    */
+    awaitReady: () => Promise<void>;
 }
 
 const client = new Client({
@@ -49,5 +53,15 @@ client.on("interactionCreateHook", (interaction: Interaction) => {
 
     command.execute(interaction);
 });
+
+client.awaitReady = async function () {
+    const isReady = this.isReady();
+    if (isReady) return;
+
+    return new Promise((resolve) => {
+        this.on("ready", () => resolve());
+    });
+
+};
 
 export default client;

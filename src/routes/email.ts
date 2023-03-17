@@ -1,5 +1,6 @@
 import Router from "koa-zod-router";
 import { z } from "zod";
+
 import db from "../storage/db";
 import { logToChannel } from "../storage/discord";
 import { sanitizeHtml } from "../utils/sanitize";
@@ -27,6 +28,7 @@ const successResponse: z.infer<typeof subscriptionResponseSchema> = {
 };
 
 router.post("/subscribe", async (ctx) => {
+    
     const body = ctx.request.body;
     const mailingList = db.collection("mailing-list");
 
@@ -38,9 +40,10 @@ router.post("/subscribe", async (ctx) => {
         ctx.body = successResponse;
         return;
     }
+
     await Promise.all([
-        mailingList.set(body.email, newSubscriber, {}),
-        logToChannel(body.email, process.env.DISCORD_MAIL_CHANNEL!)
+        logToChannel(body.email, process.env.DISCORD_MAIL_CHANNEL!),
+        mailingList.set(body.email, newSubscriber, {})
     ]);
 
     ctx.body = successResponse;
