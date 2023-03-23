@@ -28,7 +28,7 @@ const successResponse: z.infer<typeof subscriptionResponseSchema> = {
 };
 
 router.post("/subscribe", async (ctx) => {
-    
+
     const body = ctx.request.body;
     const mailingList = db.collection("mailing-list");
 
@@ -41,10 +41,11 @@ router.post("/subscribe", async (ctx) => {
         return;
     }
 
-    await Promise.all([
-        logToChannel(body.email, process.env.DISCORD_MAIL_CHANNEL!),
-        mailingList.set(body.email, newSubscriber, {})
-    ]);
+    await mailingList.set(body.email, newSubscriber, {});
+
+    ctx.addCleanup(async () => {
+        await logToChannel(body.email, process.env.DISCORD_MAIL_CHANNEL!);
+    });
 
     ctx.body = successResponse;
 }, {
