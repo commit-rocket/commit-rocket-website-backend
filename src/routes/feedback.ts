@@ -9,7 +9,7 @@ const router = Router({
 });
 
 const feedbackPostSchema = z.object({
-    text: z.string().transform(sanitizeHtml)
+    text: z.string().min(1).transform(sanitizeHtml)
 });
 
 router.post("/", async (ctx) => {
