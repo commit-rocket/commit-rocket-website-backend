@@ -5,12 +5,10 @@ import Koa from "koa";
 import router from "./routes";
 import poweredBy from "./middleware/poweredBy";
 import cors from "./middleware/cors";
-import cleanup from "./middleware/cleanup";
 
 const app = new Koa();
 
 app
-    .use(cleanup())
     .use(poweredBy("rocket-fuel (koa)"))
     .use(router.allowedMethods())
     .use(cors({

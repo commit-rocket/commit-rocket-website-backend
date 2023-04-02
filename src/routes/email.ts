@@ -41,11 +41,10 @@ router.post("/subscribe", async (ctx) => {
         return;
     }
 
-    await mailingList.set(body.email, newSubscriber, {});
-
-    ctx.addCleanup(async () => {
-        await logToChannel(body.email, process.env.DISCORD_MAIL_CHANNEL!);
-    });
+    await Promise.all([
+        mailingList.set(body.email, newSubscriber, {}),
+        logToChannel(body.email, process.env.DISCORD_MAIL_CHANNEL!)
+    ])
 
     ctx.body = successResponse;
 }, {
